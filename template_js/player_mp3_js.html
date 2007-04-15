@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Player MP3 JS</title>
+		<style type="text/css">
+		html {
+			background-color: #7f7f8e;
+			color: #fff;
+		}
+		body {
+			background: #fff;
+			color: #000;
+			border: solid 5px #9494A5;
+			padding: 1em;
+			margin: 1em 2em 1em 2em;
+		}
+		h1 {
+			text-align: center;
+			border-bottom: solid 2px #ccc;
+		}
+		
+		/* ==================== Player ==================== */
+		#player {
+			background-color: #e9f6ff;
+			color: #000;
+			height: 20px;
+			width: 200px;
+			border: solid 3px #ddd;
+		}
+		#player .button {
+			width: 20px;
+			height: 20px;
+			background-repeat: no-repeat;
+			background-position: 2px 2px;
+			float: left;
+		}
+		#player .button a {
+			display: block;
+			height: 20px;
+			text-indent: -100em;
+			overflow: hidden;
+		}
+		#player #timeline {
+			position: relative;
+		}
+		#player #timeline a {
+			position: absolute;
+			left: 40px;
+			display: block;
+			height: 20px;
+			width: 40px;
+			text-indent: -100em;
+			overflow: hidden;
+			background-image: url(images/control_slider.png);
+		}
+		#player #timeline a:hover {
+			background-image: url(images/control_slider_blue.png);
+		}
+		#player .play {
+			background-image: url(images/control_play.png);
+		}
+		#player .play:hover {
+			background-image: url(images/control_play_blue.png);
+		}
+		#player .pause {
+			background-image: url(images/control_pause.png);
+			display: none;
+		}
+		#player .pause:hover {
+			background-image: url(images/control_pause_blue.png);
+		}
+		#player .stop {
+			background-image: url(images/control_stop.png);
+		}
+		#player .stop:hover {
+			background-image: url(images/control_stop_blue.png);
+		}
+		
+		</style>
+        <script type="text/javascript">
+        	var myListener = new Object();
+        	
+        	/**
+        	 * Initialize
+        	 */
+        	myListener.onInit = function()
+        	{
+        		_addEventListener(document.getElementById("playerslider"), "mousedown", _sliderDown, false);
+        		_addEventListener(document, "mousemove", _sliderMove, false);
+        		_addEventListener(document, "mouseup", _sliderUp, false);
+        	};
+        	/**
+        	 * Update
+        	 */
+        	myListener.onUpdate = function()
+        	{
+        		var isPlaying = this.isPlaying;
+           		var url = this.url;
+           		var volume = this.volume;
+           		var position = this.position;
+            	var duration = this.duration;
+            	
+            	var id3_artist = this.id3_artist;
+            	var id3_album = this.id3_album;
+            	var id3_songname = this.id3_songname;
+            	var id3_genre = this.id3_genre;
+            	var id3_year = this.id3_year;
+            	var id3_track = this.id3_track;
+            	var id3_comment = this.id3_comment;
+            	
+            	document.getElementById("info_playing").innerHTML = isPlaying;
+            	document.getElementById("info_url").innerHTML = url;
+            	document.getElementById("info_volume").innerHTML = volume;
+            	document.getElementById("info_position").innerHTML = position;
+            	document.getElementById("info_duration").innerHTML = duration;
+            	document.getElementById("info_bytes").innerHTML = this.bytesLoaded + "/" + this.bytesTotal + " (" + this.bytesPercent + "%)";
+            	
+            	document.getElementById("info_id3_artist").innerHTML = id3_artist;
+            	document.getElementById("info_id3_album").innerHTML = id3_album;
+            	document.getElementById("info_id3_songname").innerHTML = id3_songname;
+            	document.getElementById("info_id3_genre").innerHTML = id3_genre;
+            	document.getElementById("info_id3_year").innerHTML = id3_year;
+            	document.getElementById("info_id3_track").innerHTML = id3_track;
+            	document.getElementById("info_id3_comment").innerHTML = id3_comment;
+            	
+            	isPlaying = (isPlaying == "true");
+           		document.getElementById("playerplay").style.display = (isPlaying)?"none":"block";
+           		document.getElementById("playerpause").style.display = (isPlaying)?"block":"none";
+           		
+            	var timelineWidth = 160;
+            	var sliderWidth = 40;
+            	var sliderPositionMin = 40;
+            	var sliderPositionMax = sliderPositionMin + timelineWidth - sliderWidth;
+            	var sliderPosition = sliderPositionMin + Math.round((timelineWidth - sliderWidth)* position / duration);
+            	
+            	if (sliderPosition < sliderPositionMin) {
+            		sliderPosition = sliderPositionMin;
+            	}
+            	if (sliderPosition > sliderPositionMax) {
+            		sliderPosition = sliderPositionMax;
+            	}
+            	
+            	document.getElementById("playerslider").style.left = sliderPosition+"px";
+        	};
+        	
+        	/**
+        	 * private functions
+        	 */
+        	var sliderPressed = false;
+        	function _getFlashObject()
+        	{
+        		return document.getElementById("myFlash");
+        	}
+        	function _cumulativeOffset (pElement)
+        	{
+				var valueT = 0, valueL = 0;
+				do {
+					valueT += pElement.offsetTop  || 0;
+					valueL += pElement.offsetLeft || 0;
+					pElement = pElement.offsetParent;
+				} while (pElement);
+				return [valueL, valueT];
+			}
+        	function _xmouse(pEvent)
+        	{
+				return pEvent.pageX || (pEvent.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft));
+        	}
+        	function _ymouse(pEvent)
+        	{
+				return pEvent.pageY || (pEvent.clientY + (document.documentElement.scrollTop || document.body.scrollTop));
+        	}
+        	function _findPosX(pElement)
+        	{
+				if (!pElement) return 0;
+				var pos = _cumulativeOffset(pElement);
+				return pos[0];
+			}
+        	function _findPosY(pElement)
+        	{
+				if (!pElement) return 0;
+				var pos = _cumulativeOffset(pElement);
+				return pos[1];
+			}
+        	function _addEventListener(pElement, pName, pListener, pUseCapture)
+        	{
+				if (pElement.addEventListener) {
+					pElement.addEventListener(pName, pListener, pUseCapture);
+				} else if (pElement.attachEvent) {
+					pElement.attachEvent("on"+pName, pListener);
+				}
+			}
+			function _sliderDown(pEvent)
+			{
+				sliderPressed = true;
+			}
+			function _sliderMove(pEvent)
+			{
+				if (sliderPressed) {
+					var timelineWidth = 160;
+					var sliderWidth = 40;
+	            	var sliderPositionMin = 40;
+	            	var sliderPositionMax = sliderPositionMin + timelineWidth - sliderWidth;
+					var startX = _findPosX(document.getElementById("timeline"));
+					var x = _xmouse(pEvent) - sliderWidth / 2;
+					
+					if (x < startX) {
+						var position = 0;
+					} else if (x > startX + timelineWidth) {
+						var position = myListener.duration;
+					} else {
+						var position = Math.round(myListener.duration * (x - startX - sliderWidth) / (startX + timelineWidth - sliderWidth - startX));
+					}
+					_getFlashObject().SetVariable("method:setPosition", position);
+				}
+			}
+			function _sliderUp(pEvent)
+			{
+				sliderPressed = false;
+			}
+        	
+        	/**
+        	 * public functions
+        	 */
+            function play() {
+            	if (myListener.url == "undefined") {
+                	_getFlashObject().SetVariable("method:setUrl", "test.mp3");
+                }
+                _getFlashObject().SetVariable("method:play", "");
+            }
+            function pause() {
+                _getFlashObject().SetVariable("method:pause", "");
+            }
+            function stop() {
+                _getFlashObject().SetVariable("method:stop", "");
+            }
+        </script>
+        <!--[if IE]>
+		<script type="text/javascript" event="FSCommand(command,args)" for="myFlash">
+		eval(args);
+		</script>
+		<![endif]-->
+	</head>
+	<body>
+		<h1>Thème JS</h1>
+		<object id="myFlash" type="application/x-shockwave-flash" data="player_mp3_js.swf" width="1" height="1">
+			<param name="movie" value="player_mp3_js.swf" />
+			<param name="AllowScriptAccess" value="always" />
+			<param name="FlashVars" value="listener=myListener&amp;interval=500" />
+			<p>Texte alternatif</p>
+		</object>
+		<div id="player">
+			<div id="playerplay" class="button play"><a href="javascript:play()">PLAY</a></div>
+			<div id="playerpause" class="button pause"><a href="javascript:pause()">PAUSE</a></div>
+			<div id="playerstop" class="button stop"><a href="javascript:stop()">STOP</a></div>
+			<div id="timeline"><a id="playerslider" href="javascript:void(0);">SLIDER</a></div>
+		</div>
+		<h2>Informations</h2>
+		<ul>
+			<li>url : <span id="info_url">undefined</span></li>
+			<li>isPlaying : <span id="info_playing">undefined</span></li>
+			<li>bytes : <span id="info_bytes">undefined</span></li>
+			<li>position : <span id="info_position">undefined</span></li>
+			<li>duration : <span id="info_duration">undefined</span></li>
+			<li>volume : <span id="info_volume">undefined</span></li>
+			
+			<li>ID3 Artist : <span id="info_id3_artist">undefined</span></li>
+			<li>ID3 Album : <span id="info_id3_album">undefined</span></li>
+			<li>ID3 Songname : <span id="info_id3_songname">undefined</span></li>
+			<li>ID3 Genre : <span id="info_id3_genre">undefined</span></li>
+			<li>ID3 Year : <span id="info_id3_year">undefined</span></li>
+			<li>ID3 Track : <span id="info_id3_track">undefined</span></li>
+			<li>ID3 Comment : <span id="info_id3_comment">undefined</span></li>
+		</ul>
+		
+		<p>Plus d'information sur <a href="http://resources.neolao.com/flash/components/player_mp3/templates/js">la page officielle</a>.</p>
+		<p>Icônes par <a href="http://www.famfamfam.com/">famfamfam</a>.</p>
+	</body>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<param name="mp3" value="test.mp3|test.mp3|test.mp3|test.mp3|test.mp3|test.mp3|test.mp3" />
+	<param name="title" value="un titre plutôt long pour montrer le défilement qui marche assez bien ^^" />
+	<param name="height" value="150" />
+	<param name="width" value="250" />
+	<param name="bgcolor" value="cccc99" />
+	<param name="bgcolor1" value="e79a2d" />
+	<param name="bgcolor2" value="d38c29" />
+	<param name="buttoncolor" value="dddddd" />
+	<param name="buttonovercolor" value="f9bf37" />
+	<param name="slidercolor1" value="dddddd" />
+	<param name="slidercolor2" value="cccccc" />
+	<param name="sliderovercolor" value="f9bf37" />
+	<param name="textcolor" value="dddddd" />
+	<param name="playlistcolor" value="999999" />
+	<param name="currentmp3color" value="f9bf37" />
+	<param name="scrollbarcolor" value="cccccc" />
+	<param name="scrollbarovercolor" value="f9bf37" />
+	<param name="showvolume" value="1" />
+	<param name="showinfo" value="1" />
+</config>

@@ -1,0 +1,15 @@
+mp3=test.mp3|test.mp3|test.mp3|test.mp3|test.mp3|test.mp3|test.mp3|test.mp3
+title=un titre plutôt long pour montrer le défilement qui marche assez bien ^^
+bgcolor1=9293a9
+bgcolor2=808094
+buttoncolor=dddddd
+buttonovercolor=f9bf37
+slidercolor1=dddddd
+slidercolor2=cccccc
+sliderovercolor=f9bf37
+textcolor=dddddd
+playlistcolor=999999
+currentmp3color=f9bf37
+scrollbarcolor=cccccc
+scrollbarovercolor=f9bf37
+showvolume=1

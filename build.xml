@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<project name="MP3 Player" basedir=".">
+
+    <property name="mtasc.dir" value="${basedir}/mtasc" />
+
+    <target name="template_default" depends="setup" description="Build template_default">
+    	<property name="template.dir" value="${basedir}/template_default" />
+        <exec executable="${mtasc.dir}/${mtasc.exe}" failonerror="false">
+            <arg line="-version 7 -v -strict -main -header 200:20:24 
+            	-cp ${basedir}/classes 
+            	-swf ${template.dir}/player_mp3.swf 
+            	${template.dir}/TemplateDefault.as"/>
+        </exec>
+    </target>
+
+    <target name="template_mini" depends="setup" description="Build template_mini">
+    	<property name="template.dir" value="${basedir}/template_mini" />
+        <exec executable="${mtasc.dir}/${mtasc.exe}" failonerror="false">
+            <arg line="-version 7 -v -strict -main -header 200:20:24 
+            	-cp ${basedir}/classes 
+            	-swf ${template.dir}/player_mp3_mini.swf 
+            	${template.dir}/TemplateMini.as"/>
+        </exec>
+    </target>
+
+    <target name="template_maxi" depends="setup" description="Build template_maxi">
+    	<property name="template.dir" value="${basedir}/template_maxi" />
+        <exec executable="${mtasc.dir}/${mtasc.exe}" failonerror="false">
+            <arg line="-version 7 -v -strict -main -header 200:20:24 
+            	-cp ${basedir}/classes 
+            	-swf ${template.dir}/player_mp3_maxi.swf 
+            	${template.dir}/TemplateMaxi.as"/>
+        </exec>
+    </target>
+
+    <target name="template_multi" depends="setup" description="Build template_multi">
+    	<property name="template.dir" value="${basedir}/template_multi" />
+        <exec executable="${mtasc.dir}/${mtasc.exe}" failonerror="false">
+            <arg line="-version 7 -v -strict -main -header 200:20:24 
+            	-cp ${basedir}/classes 
+            	-swf ${template.dir}/player_mp3_multi.swf 
+            	${template.dir}/TemplateMulti.as"/>
+        </exec>
+    </target>
+
+    <target name="template_js" depends="setup" description="Build template_js">
+    	<property name="template.dir" value="${basedir}/template_js" />
+        <exec executable="${mtasc.dir}/${mtasc.exe}" failonerror="false">
+            <arg line="-version 7 -v -strict -main -header 1:1:24 
+            	-cp ${basedir}/classes 
+            	-swf ${template.dir}/player_mp3_js.swf 
+            	${template.dir}/TemplateJS.as"/>
+        </exec>
+    </target>
+	
+	
+	<!-- Configuration -->
+    <target name="setup" depends="os-props,win,not-win" />
+
+    <target name="os-props">
+        <condition property="windows">
+            <os family="windows" />
+        </condition>
+    </target>
+
+    <target name="win" if="windows">
+        <property name="mtasc.exe" value="mtasc.exe" />
+    </target>
+
+    <target name="not-win" unless="windows">
+        <property name="mtasc.exe" value="mtasc" />
+    </target>
+
+</project>

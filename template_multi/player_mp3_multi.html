@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Player MP3 Multi</title>
+		<style type="text/css">
+		html {
+			background-color: #7f7f8e;
+			color: #fff;
+		}
+		body {
+			background: #fff;
+			color: #000;
+			border: solid 5px #9494A5;
+			padding: 1em;
+			margin: 1em 2em 1em 2em;
+		}
+		h1 {
+			text-align: center;
+			border-bottom: solid 2px #ccc;
+		}
+		table {
+			width: 100%;
+			border: solid 1px #666;
+			border-collapse: collapse;
+		}
+		table th {
+			text-align: left;
+			padding: .5em;
+		}
+		table tfoot {
+			display: none;
+		}
+		table tbody td {
+			vertical-align: top;
+			padding: .5em;
+			border-top: solid 1px #666;
+		}
+		table th.description, table th.html {
+			width: 50%;
+		}
+		.code {
+			border: solid 1px #990;
+			background-color: #ffffdd;
+			overflow: auto;
+			margin: 0;
+		}
+		</style>
+	</head>
+	<body>
+		<h1>Thème multi</h1>
+		<table summary="Des exemples d'affichage du lecteur">
+			<thead>
+				<tr><th>Aperçu</th><th class="description">Description</th><th class="html">Code HTML</th></tr>
+			</thead>
+			<tfoot>
+				<tr><td>Aperçu</td><td>La description de l'exemple</td><td>Le code HTML de l'exemple</td></tr>
+			</tfoot>
+			<tbody>
+				<tr>
+					<td>
+						<object type="application/x-shockwave-flash" data="player_mp3_multi.swf" width="200" height="100">
+							<param name="movie" value="player_mp3_multi.swf" />
+							<param name="FlashVars" value="mp3=test.mp3|test.mp3|test.mp3&amp;title=chanson 1|chanson 2|chanson 3" />
+							<p>Texte alternatif</p>
+						</object>
+					</td>
+					<td>Affichage par défaut, sans options.</td>
+					<td>
+						<pre class="code">&lt;object type="application/x-shockwave-flash" data="player_mp3_multi.swf" width="200" height="100"&gt;
+	&lt;param name="movie" value="player_mp3_multi.swf" /&gt;
+	&lt;param name="FlashVars" value="mp3=test.mp3|test.mp3|test.mp3&amp;amp;title=chanson 1|chanson 2|chanson 3" /&gt;
+	&lt;p&gt;Texte alternatif&lt;/p&gt;
+&lt;/object&gt;</pre>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<object type="application/x-shockwave-flash" data="player_mp3_multi.swf" width="200" height="100">
+							<param name="movie" value="player_mp3_multi.swf" />
+							<param name="wmode" value="transparent" />
+							<param name="FlashVars" value="mp3=test.mp3|test.mp3|test.mp3|test.mp3|test.mp3|test.mp3|test.mp3&amp;bgcolor1=f6f6f6&amp;bgcolor2=cccccc&amp;buttoncolor=999999&amp;buttonovercolor=0&amp;slidercolor1=cccccc&amp;slidercolor2=999999&amp;sliderovercolor=666666&amp;textcolor=0&amp;playlistcolor=999999&amp;currentmp3color=996633&amp;scrollbarcolor=999999&amp;scrollbarovercolor=0" />
+							<p>Texte alternatif</p>
+						</object>
+					</td>
+					<td>Exemple avec un changement de couleurs.</td>
+					<td>
+						<pre class="code">&lt;object type="application/x-shockwave-flash" data="player_mp3_multi.swf" width="200" height="100"&gt;
+	&lt;param name="movie" value="player_mp3_multi.swf" /&gt;
+	&lt;param name="wmode" value="transparent" /&gt;
+	&lt;param name="FlashVars" value="mp3=test.mp3|test.mp3|test.mp3|test.mp3|test.mp3|test.mp3|test.mp3&amp;amp;bgcolor1=f6f6f6&amp;amp;bgcolor2=cccccc&amp;amp;buttoncolor=999999&amp;amp;buttonovercolor=0&amp;amp;slidercolor1=cccccc&amp;amp;slidercolor2=999999&amp;amp;sliderovercolor=666666&amp;amp;textcolor=0&amp;amp;playlistcolor=999999&amp;amp;currentmp3color=996633&amp;amp;scrollbarcolor=999999&amp;amp;scrollbarovercolor=0" /&gt;
+	&lt;p&gt;Texte alternatif&lt;/p&gt;
+&lt;/object&gt;</pre>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<object type="application/x-shockwave-flash" data="player_mp3_multi.swf" width="200" height="100">
+							<param name="movie" value="player_mp3_multi.swf" />
+							<param name="wmode" value="transparent" />
+							<param name="FlashVars" value="config=config_multi.txt" />
+							<p>Texte alternatif</p>
+						</object>
+					</td>
+					<td>Utilisation d'un fichier de configuration avec priorité sur les paramètres HTML.<br/> Voir <a href="config_multi.txt">le fichier de configuration en texte</a>.</td>
+					<td>
+						<pre class="code">&lt;object type="application/x-shockwave-flash" data="player_mp3_multi.swf" width="200" height="100"&gt;
+	&lt;param name="movie" value="player_mp3_multi.swf" /&gt;
+	&lt;param name="wmode" value="transparent" /&gt;
+	&lt;param name="FlashVars" value="config=config_multi.txt" /&gt;
+	&lt;p&gt;Texte alternatif&lt;/p&gt;
+&lt;/object&gt;</pre>
+					</td>
+				</tr>
+				<tr>
+					<td style="background-color:#cc9">
+						<object type="application/x-shockwave-flash" data="player_mp3_multi.swf" width="250" height="150">
+							<param name="movie" value="player_mp3_multi.swf" />
+							<param name="wmode" value="transparent" />
+							<param name="FlashVars" value="configxml=configxml_multi.xml" />
+							<p>Texte alternatif</p>
+						</object>
+					</td>
+					<td>Même chose mais en XML.<br/> Voir <a href="configxml_multi.xml">le fichier de configuration en XML</a>.</td>
+					<td>
+						<pre class="code">&lt;object type="application/x-shockwave-flash" data="player_mp3_multi.swf" width="250" height="150"&gt;
+	&lt;param name="movie" value="player_mp3_multi.swf" /&gt;
+	&lt;param name="wmode" value="transparent" /&gt;
+	&lt;param name="FlashVars" value="configxml=configxml_multi.xml" /&gt;
+	&lt;p&gt;Texte alternatif&lt;/p&gt;
+&lt;/object&gt;</pre>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>Plus d'information sur <a href="http://resources.neolao.com/flash/components/player_mp3/templates/multi">la page officielle</a>.</p>
+	</body>
+</html>
