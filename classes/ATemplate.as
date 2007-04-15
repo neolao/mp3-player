@@ -1,9 +1,25 @@
-﻿/** 
+﻿/*
+Version: MPL 1.1
+
+The contents of this file are subject to the Mozilla Public License
+Version 1.1 (the "License"); you may not use this file except in
+compliance with the License. You may obtain a copy of the License at
+http://www.mozilla.org/MPL/
+
+Software distributed under the License is distributed on an "AS IS"
+basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+License for the specific language governing rights and limitations
+under the License.
+
+The Original Code is mp3player (http://code.google.com/p/mp3player/).
+
+The Initial Developer of the Original Code is neolao (neolao@gmail.com).
+*/
+/** 
  * Classe abstraite pour un thème
  * 
  * @author		neolao <neo@neolao.com> 
  * @version 	0.9 (02/04/2006) 
- * @link		http://resources.neolao.com/flash/components/player_mp3 
  * @license		http://creativecommons.org/licenses/by-sa/2.5/ 
  */ 
 class ATemplate
