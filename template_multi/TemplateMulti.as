@@ -58,6 +58,7 @@ class TemplateMulti extends ATemplate
 	private var _showVolume:Boolean = false;
 	private var _volume:Number = 100;
 	private var _volumeMax:Number = 200;
+	private var _showLoading:String = "autohide"; // always, autohide, never
 	
 	public var buttonWidth:Number = 26;
 	public var volumeWidth:Number = 30;
@@ -345,6 +346,7 @@ class TemplateMulti extends ATemplate
 		this._setVar("_showList", [_root.showlist, pConfig.showlist], "Boolean");
 		this._setVar("_showSlider", [_root.showslider, pConfig.showslider], "Boolean");
 		this._setVar("_showInfo", [_root.showinfo, pConfig.showinfo], "Boolean");
+		this._setVar("_showLoading", [_root.showloading, pConfig.showloading], "String");
 		
 		if (_root.title != undefined && _root.playlist == undefined) {
 			this._title = _root.title.split("|");
@@ -1017,8 +1019,10 @@ class TemplateMulti extends ATemplate
 	{
 		var objLoading:Object = this.player.getLoading();
 		this._loadingInstance._xscale = (objLoading.percent >= 1)?objLoading.percent:0; 
-		if (objLoading.percent == 100) { 
-			this._loadingInstance._visible = false; 
+		if (objLoading.percent == 100) {
+			if (this._showLoading != "always") {
+				this._loadingInstance._visible = false;
+			}
 			delete this._loadingInstance.onEnterFrame; 
 		}
 	}
@@ -1315,7 +1319,9 @@ class TemplateMulti extends ATemplate
 	{
 		super.startLoading();
 		this._loadingInstance.onEnterFrame = this.delegate(this, this._loading);
-		this._loadingInstance._visible = true;
+		if (this._showLoading != "never") {
+			this._loadingInstance._visible = true;
+		}
 	}
 	/*==================== FIN = METHODES PUBLIQUES = FIN ====================*/
 	/*========================================================================*/
