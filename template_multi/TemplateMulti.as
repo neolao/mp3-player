@@ -19,7 +19,7 @@ The Initial Developer of the Original Code is neolao (neolao@gmail.com).
  * Thème pour plusieurs mp3
  * 
  * @author		neolao <neo@neolao.com> 
- * @version 	0.9.0 (07/12/2006) 
+ * @version 	1.0.0 (17/04/2007) 
  * @license		http://creativecommons.org/licenses/by-sa/3.0/deed.fr
  */ 
 class TemplateMulti extends ATemplate
@@ -137,8 +137,14 @@ class TemplateMulti extends ATemplate
 		if (_root.playlist != undefined) {
 			this._loadPlaylist(_root.playlist);
 		} else {
-			this._initPlaylist();
+			// Use postcast rss
+			if (_root.playlistrss != undefined) {
+				this._loadPlaylistRss(_root.playlistrss);
+			} else {
+				this._initPlaylist();
+			}
 		}
+		
 		
 		this._initInfoPanel();
 		
@@ -379,6 +385,69 @@ class TemplateMulti extends ATemplate
 			}
 		};
 		vList.load(pUrl, vList, "GET");
+	}
+	/**
+	 * Load a podcast playlist
+	 * 
+	 * @param pUrl The podcast URL
+	 */
+	private function _loadPlaylistRss(pUrl:String)
+	{
+		var vList:LoadVars = new LoadVars();
+		vList.parent = this;
+		vList.onData = function(data:String) {
+			if (data != undefined) {
+				var dataXml:XML = new XML();
+				dataXml.ignoreWhite = true;
+				dataXml.parseXML(data);
+				
+				var vPlaylist:Array = new Array();
+				this.parent._parseRss2(dataXml.firstChild, vPlaylist);
+				
+				var urlList:Array = new Array();
+				var titleList:Array = new Array();
+				for (var i:Number=0; i<vPlaylist.length; i++) {
+					urlList.push(vPlaylist[i].url);
+					titleList.push(vPlaylist[i].title);
+				}
+				
+				this.parent.player.playlist = urlList;
+				this.parent._title = titleList;
+				_root.mp3 = urlList.join("|");
+				this.parent._initPlaylist();
+				this.parent.updatePlaylist();
+				if (_root.autoplay != undefined) {
+					this.parent.player.setIndex(0);
+				}
+			}
+		};
+		vList.load(pUrl, vList, "GET");
+	}
+	/**
+	 * Parse RSS 2
+	 * 
+	 * @param pXml The XML
+	 * @param pList The list of enclosure	 */
+	private function _parseRss2(pXml:XML, pList:Array)
+	{
+		var items:Array = pXml.firstChild.childNodes;
+		var title:String = "no title";
+		var url:String = "no url";
+		
+		for (var i:Number=0; i<items.length; i++) {
+			if (items[i].nodeName == "item") {
+				title = "no title";
+				for (var j:Number=0; j<items[i].childNodes.length; j++) {
+					if (items[i].childNodes[j].nodeName == "title") {
+						title = items[i].childNodes[j].firstChild.nodeValue;
+					}
+					if (items[i].childNodes[j].nodeName == "enclosure") {
+						url = items[i].childNodes[j].attributes["url"];
+						pList.push({title: title, url: url});
+					}
+				}
+			}
+		}
 	}
 	/**
 	 * Initialisation du fond
