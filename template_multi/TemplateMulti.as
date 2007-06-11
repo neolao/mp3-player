@@ -16,22 +16,22 @@ The Original Code is mp3player (http://code.google.com/p/mp3player/).
 The Initial Developer of the Original Code is neolao (neolao@gmail.com).
 */
 /** 
- * Thème pour plusieurs mp3
+ * Template for several mp3
  * 
  * @author		neolao <neo@neolao.com> 
- * @version 	1.0.0 (17/04/2007) 
+ * @version 	1.1.0 (11/06/2007) 
  * @license		http://creativecommons.org/licenses/by-sa/3.0/deed.fr
  */ 
 class TemplateMulti extends ATemplate
 {
 	// ------------------------------ VARIABLES --------------------------------
 	/**
-	 * Largeur du thème	 */
+	 * Template width	 */
 	private var _width:Number = 200;
 	/**
-	 * Hauteur du thème	 */
+	 * Template height	 */
 	private var _height:Number = 100;
-	/**	 * Hauteur du lecteur
+	/**	 * Toolbar height
 	 */
 	private var _playerHeight:Number = 20;
 	
@@ -59,6 +59,7 @@ class TemplateMulti extends ATemplate
 	private var _volume:Number = 100;
 	private var _volumeMax:Number = 200;
 	private var _showLoading:String = "autohide"; // always, autohide, never
+	private var _showPlaylistNumbers:Boolean = true;
 	
 	public var buttonWidth:Number = 26;
 	public var volumeWidth:Number = 30;
@@ -87,7 +88,7 @@ class TemplateMulti extends ATemplate
 	/*============================= CONSTRUCTEUR =============================*/
 	/*========================================================================*/
 	/**
-	 * Initialisation
+	 * Constructor
 	 */
 	public function TemplateMulti()
 	{
@@ -222,7 +223,7 @@ class TemplateMulti extends ATemplate
 		}));
 	}
 	/**
-	 * Lancé par mtasc
+	 * Launched by mtasc
 	 */
 	static function main():Void
 	{
@@ -347,6 +348,7 @@ class TemplateMulti extends ATemplate
 		this._setVar("_showSlider", [_root.showslider, pConfig.showslider], "Boolean");
 		this._setVar("_showInfo", [_root.showinfo, pConfig.showinfo], "Boolean");
 		this._setVar("_showLoading", [_root.showloading, pConfig.showloading], "String");
+		this._setVar("_showPlaylistNumbers", [_root.showplaylistnumbers, pConfig.showplaylistnumbers], "Boolean");
 		
 		if (_root.title != undefined && _root.playlist == undefined) {
 			this._title = _root.title.split("|");
@@ -381,8 +383,14 @@ class TemplateMulti extends ATemplate
 				_root.mp3 = vPlaylist.join("|");
 				this.parent._initPlaylist();
 				this.parent.updatePlaylist();
-				if (_root.autoplay != undefined) {
+				
+				// autoplay
+				if (_root.autoplay == "1") {
 					this.parent.player.setIndex(0);
+				}
+				// shuffle
+				if (this.parent.player.shuffle) {
+					this.parent.player.next();
 				}
 			}
 		};
@@ -418,8 +426,14 @@ class TemplateMulti extends ATemplate
 				_root.mp3 = urlList.join("|");
 				this.parent._initPlaylist();
 				this.parent.updatePlaylist();
-				if (_root.autoplay != undefined) {
+				
+				// autoplay
+				if (_root.autoplay == "1") {
 					this.parent.player.setIndex(0);
+				}
+				// shuffle
+				if (this.parent.player.shuffle) {
+					this.parent.player.next();
 				}
 			}
 		};
@@ -1183,7 +1197,9 @@ class TemplateMulti extends ATemplate
 			}
 			text += "<font color=\"#"+color+"\" face=\"_sans\">";
 			text += "<a href=\"asfunction:play," + i + "\">";
-			text += (i+1) + " - ";
+			if (this._showPlaylistNumbers) {
+				text += (i+1) + " - ";
+			}
 			
 			// titre de la piste
 			if (this._title[i] != undefined) {
