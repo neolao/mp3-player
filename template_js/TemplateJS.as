@@ -19,7 +19,7 @@ The Initial Developer of the Original Code is neolao (neolao@gmail.com).
  * Thème spécial pour le contrôle par javascript
  * 
  * @author		neolao <neo@neolao.com> 
- * @version 	0.2.1 (03/04/2007) 
+ * @version 	0.2.2 (04/07/2007) 
  * @license		http://creativecommons.org/licenses/by-sa/2.5/ 
  */ 
 class TemplateJS extends ATemplate
@@ -112,7 +112,9 @@ class TemplateJS extends ATemplate
 			js += _listener+i+'="'+_listenerTemp[i]+'";';
 		}
 		
-		this.sendToJavascript(js+_listener+"onUpdate();");
+		if (_root.enabled == "true") {
+			this.sendToJavascript(js+_listener+"onUpdate();");
+		}
 	}
 	/*===================== FIN = METHODES PRIVEES = FIN =====================*/
 	/*========================================================================*/
