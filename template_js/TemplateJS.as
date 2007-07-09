@@ -15,11 +15,12 @@ The Original Code is mp3player (http://code.google.com/p/mp3player/).
 
 The Initial Developer of the Original Code is neolao (neolao@gmail.com).
 */
+import flash.external.*;
 /** 
  * Thème spécial pour le contrôle par javascript
  * 
  * @author		neolao <neo@neolao.com> 
- * @version 	0.2.2 (04/07/2007) 
+ * @version 	0.2.3 (09/07/2007) 
  * @license		http://creativecommons.org/licenses/by-sa/2.5/ 
  */ 
 class TemplateJS extends ATemplate
@@ -53,6 +54,11 @@ class TemplateJS extends ATemplate
 		// Javascript object listener
 		if (_root.listener) {
 			_listener = _root.listener + ".";
+		}
+		
+		// Use ExternalInterface
+		if (_root.useexternalinterface) {
+			getURL("javascript:"+_listener+"oooupdate=function(o){eval(o);};void(0);");
 		}
 		
 		// Interval update
@@ -126,7 +132,9 @@ class TemplateJS extends ATemplate
 	 */
 	public function sendToJavascript(pCommand:String)
 	{
-		if (System.capabilities.playerType == "ActiveX") {
+		if (_root.useexternalinterface) {
+			ExternalInterface.call(_listener+"oooupdate", pCommand);
+		} else if (System.capabilities.playerType == "ActiveX") {
 			fscommand("update", pCommand);
 		} else {
 			getURL("javascript:"+pCommand);
