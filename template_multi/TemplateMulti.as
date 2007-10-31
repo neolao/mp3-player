@@ -19,7 +19,7 @@ The Initial Developer of the Original Code is neolao (neolao@gmail.com).
  * Template for several mp3
  * 
  * @author		neolao <neo@neolao.com> 
- * @version 	1.1.0 (11/06/2007) 
+ * @version 	1.2.0 (31/10/2007) 
  * @license		http://creativecommons.org/licenses/by-sa/3.0/deed.fr
  */ 
 class TemplateMulti extends ATemplate

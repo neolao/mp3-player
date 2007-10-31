@@ -46,7 +46,7 @@
     <target name="template_js" depends="setup" description="Build template_js">
     	<property name="template.dir" value="${basedir}/template_js" />
         <exec executable="${mtasc.dir}/${mtasc.exe}" failonerror="false">
-            <arg line="-version 7 -v -strict -main -header 1:1:24 
+            <arg line="-version 8 -v -strict -main -header 1:1:24 
             	-cp ${basedir}/classes 
             	-swf ${template.dir}/player_mp3_js.swf 
             	${template.dir}/TemplateJS.as"/>
