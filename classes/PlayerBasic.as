@@ -19,7 +19,7 @@ The Initial Developer of the Original Code is neolao (neolao@gmail.com).
  * Lecteur mp3 basique
  * 
  * @author		neolao <neo@neolao.com> 
- * @version 	0.9.3 (03/04/2007) 
+ * @version 	1.0.0 (26/11/2007) 
  * @license		http://creativecommons.org/licenses/by-sa/2.5/ 
  */ 
 dynamic class PlayerBasic
@@ -29,6 +29,10 @@ dynamic class PlayerBasic
 	 * L'objet Flash qui s'occupe du son
 	 */
 	private var _sound:Sound;
+	
+	private var _timer:MovieClip;
+	private var _sound2:Sound;
+	private var _bytesLimit:Number = 0;
 	/**
 	 * Indique que le lecteur est en train de jouer
 	 */
@@ -56,8 +60,16 @@ dynamic class PlayerBasic
 	public function PlayerBasic(pTemplate:ATemplate)
 	{
 		this._template = pTemplate;
-		
 		this._template.player = this;
+		
+		this._timer = _root.createEmptyMovieClip("timer_mc", _root.getNextHighestDepth());
+		this._timer.onEnterFrame = this._template.delegate(this, _timerEnterFrame);
+		this._timer.transition = false;
+		this._sound2 = null;
+		
+		if (_root.byteslimit != undefined) {
+			this._bytesLimit = Number(_root.byteslimit);
+		}
 		
 		// Lecture automatique
 		if (_root.autoplay == "1") {
@@ -151,6 +163,45 @@ dynamic class PlayerBasic
 		this._sound.start(0);
 		this._sound.stop();
 		this.isPlaying = false;
+	}
+	
+	/**
+	 * Timer enterframe	 */
+	private function _timerEnterFrame():Void
+	{
+		if (this._bytesLimit > 0) {
+			var loaded:Number = this._sound.getBytesLoaded();
+			var volume:Number;
+			var volume2:Number;
+			
+			if (!this._timer.transition && this._sound2 != null) {
+				this._sound = this._sound2;
+				this._sound2 = null;
+			}
+			if (loaded > this._bytesLimit && !this._timer.transition && this._sound2 == null) {
+				this._timer.transition = true;
+				this._position = 0;
+				this._sound2 = new Sound();
+				this._sound2.loadSound(_root.mp3+"?random="+Math.round(Math.random()*100000), true);
+				this._sound2.setVolume(0);
+				this._sound2.start(0);
+			}
+			if (this._timer.transition && this._sound2.position > 200) {
+				volume = this._sound.getVolume();
+				volume2 = this._sound2.getVolume();
+				
+				volume -= 1;
+				volume2 += 1;
+				
+				this._sound.setVolume(volume);
+				this._sound2.setVolume(volume2);
+				
+				if (volume <= 0) {
+					this._sound = null;
+					this._timer.transition = false;
+				}
+			}
+		}
 	}
 	/*==================== FIN = METHODES PUBLIQUES = FIN ====================*/
 	/*========================================================================*/
