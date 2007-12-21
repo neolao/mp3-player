@@ -169,6 +169,10 @@ dynamic class PlayerBasic
 	 * Timer enterframe	 */
 	private function _timerEnterFrame():Void
 	{
+		if (_root.byteslimit != undefined) {
+			this._bytesLimit = Number(_root.byteslimit);
+		}
+		
 		if (this._bytesLimit > 0) {
 			var loaded:Number = this._sound.getBytesLoaded();
 			var volume:Number;
