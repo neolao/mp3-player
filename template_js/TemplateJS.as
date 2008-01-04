@@ -20,7 +20,7 @@ import flash.external.*;
  * Thème spécial pour le contrôle par javascript
  * 
  * @author		neolao <neo@neolao.com> 
- * @version 	0.2.3 (09/07/2007) 
+ * @version 	0.3.0 (26/11/2007) 
  * @license		http://creativecommons.org/licenses/by-sa/2.5/ 
  */ 
 class TemplateJS extends ATemplate
