@@ -19,7 +19,7 @@ The Initial Developer of the Original Code is neolao (neolao@gmail.com).
  * Thème avec plein de choses pour le lecteur mp3
  * 
  * @author		neolao <neo@neolao.com> 
- * @version 	0.5.0 (07/12/2006) 
+ * @version 	0.6.0 (04/01/2008) 
  * @license		http://creativecommons.org/licenses/by-sa/3.0/deed.fr
  */ 
 class TemplateMaxi extends ATemplate

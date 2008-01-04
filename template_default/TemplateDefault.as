@@ -19,7 +19,7 @@ The Initial Developer of the Original Code is neolao (neolao@gmail.com).
  * Thème par défaut du lecteur mp3
  * 
  * @author		neolao <neo@neolao.com> 
- * @version 	0.9.4 (31/05/2006) 
+ * @version 	1.0.0 (04/01/2008) 
  * @license		http://creativecommons.org/licenses/by-sa/3.0/deed.fr
  */ 
 class TemplateDefault extends ATemplate

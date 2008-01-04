@@ -19,7 +19,7 @@ The Initial Developer of the Original Code is neolao (neolao@gmail.com).
  * Template for several mp3
  * 
  * @author		neolao <neo@neolao.com> 
- * @version 	1.2.0 (31/10/2007) 
+ * @version 	1.2.1 (04/01/2008) 
  * @license		http://creativecommons.org/licenses/by-sa/3.0/deed.fr
  */ 
 class TemplateMulti extends ATemplate
@@ -534,20 +534,22 @@ class TemplateMulti extends ATemplate
 		}
 	}
 	/**
-	 * Initialisation d'un bouton
+	 * Initialize a button
 	 * 
-	 * @param pTarget Le bouton à initialiser
+	 * @param pTarget The button instance
+	 * @param pWidth The button width
 	 */
-	private function _initButton(pTarget:MovieClip)
+	private function _initButton(pTarget:MovieClip, pWidth:Number)
 	{
 		var vArea:MovieClip = pTarget.createEmptyMovieClip("area_mc", pTarget.getNextHighestDepth());
 		var vIcon:MovieClip = pTarget.createEmptyMovieClip("icon_mc", pTarget.getNextHighestDepth());
+		var width:Number = (pWidth == undefined)?this.buttonWidth:pWidth;
 		
 		vArea.beginFill(0, 0);
 		vArea.moveTo(2, 2);
 		vArea.lineTo(2, this._playerHeight - 4);
-		vArea.lineTo(this.buttonWidth - 4, this._playerHeight - 4);
-		vArea.lineTo(this.buttonWidth - 4, 2);
+		vArea.lineTo(width - 4, this._playerHeight - 4);
+		vArea.lineTo(width - 4, 2);
 		vArea.endFill();
 		
 		vArea.parent = this;

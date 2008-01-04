@@ -19,7 +19,7 @@ The Initial Developer of the Original Code is neolao (neolao@gmail.com).
  * Thème léger
  * 
  * @author		neolao <neo@neolao.com> 
- * @version 	0.2.2 (31/05/2006) 
+ * @version 	0.3.0 (04/01/2008) 
  * @license		http://creativecommons.org/licenses/by-sa/3.0/deed.fr
  */ 
 class TemplateMini extends ATemplate
