@@ -48,6 +48,8 @@ class TemplateJS extends ATemplate
 	{
 		super();
 		
+		System.security.allowDomain("*");
+		
 		// Temporary Javascript object listener
 		_listenerTemp = new Object();
 		
