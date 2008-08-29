@@ -44,7 +44,7 @@ class ATemplate
         if (_global._accProps == undefined) {
             _global._accProps = new Object();
         }
-        _global._accProps.name = "prout";
+        //_global._accProps.name = "mp3 player";
 	}
 	/*======================= FIN = CONSTRUCTEUR = FIN =======================*/
 	/*========================================================================*/
