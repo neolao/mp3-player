@@ -40,6 +40,11 @@ class ATemplate
 	{
 		this._shortcuts = new Array();
 		this._initKey();
+        
+        if (_global._accProps == undefined) {
+            _global._accProps = new Object();
+        }
+        _global._accProps.name = "prout";
 	}
 	/*======================= FIN = CONSTRUCTEUR = FIN =======================*/
 	/*========================================================================*/
