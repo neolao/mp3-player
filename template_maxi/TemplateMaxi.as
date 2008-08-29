@@ -19,7 +19,7 @@ The Initial Developer of the Original Code is neolao (neolao@gmail.com).
  * Thème avec plein de choses pour le lecteur mp3
  * 
  * @author		neolao <neo@neolao.com> 
- * @version 	0.6.0 (04/01/2008) 
+ * @version 	0.6.1 (29/08/2008) 
  * @license		http://creativecommons.org/licenses/by-sa/3.0/deed.fr
  */ 
 class TemplateMaxi extends ATemplate
@@ -167,6 +167,10 @@ class TemplateMaxi extends ATemplate
 		{
 			this.infoRelease();
 		}));
+        
+        
+        // Update accessibility properties
+        Accessibility.updateProperties();
 	}
 	/**
 	 * Lancé par mtasc
@@ -403,6 +407,9 @@ class TemplateMaxi extends ATemplate
 		vArea.lineTo(pWidth - 4, 2);
 		vArea.endFill();
 		
+        if (vArea._accProps == undefined) {
+            vArea._accProps = new Object();
+        }
 		vArea.tabEnabled = false;
 		vArea.parent = this;
 		vArea.color = new Color(vIcon);
@@ -440,6 +447,11 @@ class TemplateMaxi extends ATemplate
 		} 
 		
 		this._playButtonInstance.area_mc.onRelease = this.delegate(this, this.playRelease);
+        
+        // Accessibility
+        this._playButtonInstance.area_mc.tabEnabled = true;
+        this._playButtonInstance.area_mc._accProps.name = "Play";
+
 		
 		// icone
 		this._playButtonInstance.icon_mc.beginFill(this._buttonColor);
@@ -460,6 +472,10 @@ class TemplateMaxi extends ATemplate
 		}
 		
 		this._pauseButtonInstance.area_mc.onRelease = this.delegate(this, this.pauseRelease);
+        
+        // Accessibility
+        this._pauseButtonInstance.area_mc.tabEnabled = true;
+        this._pauseButtonInstance.area_mc._accProps.name = "Pause";
 		
 		// icone
 		this._pauseButtonInstance.icon_mc.beginFill(this._buttonColor); 
@@ -490,6 +506,10 @@ class TemplateMaxi extends ATemplate
 			this._stopButtonInstance._x = this.buttonWidth;
 			
 			this._stopButtonInstance.area_mc.onRelease = this.delegate(this, this.stopRelease);
+            
+            // Accessibility
+            this._stopButtonInstance.area_mc.tabEnabled = true;
+            this._stopButtonInstance.area_mc._accProps.name = "Stop";
 			
 			// icone
 			this._stopButtonInstance.icon_mc.beginFill(this._buttonColor);
@@ -758,13 +778,18 @@ class TemplateMaxi extends ATemplate
 			
 			
 			// barre slider 
-			var vSlider:MovieClip = this._sliderInstance.createEmptyMovieClip("bar_mc", this._sliderInstance.getNextHighestDepth()); 
+			var vSlider:MovieClip = this._sliderInstance.createEmptyMovieClip("bar_mc", this._sliderInstance.getNextHighestDepth());
 			vSlider.parent = this;
 			vSlider.margin = vMargin;
 			vSlider.width = this.sliderWidth;
 			vSlider.barWidth = this._sliderInstance.width;
 			vSlider.color = new Color(vSlider);
 			vSlider.tabEnabled = false;
+            if (vSlider._accProps == undefined) {
+                vSlider._accProps = new Object();
+            }
+            vSlider._accProps.silent = true;
+            vSlider._accProps.name = "Slider";
 			vSlider.onRollOver = function()
 			{ 
 				this.color.setRGB(this.parent._sliderOverColor); 
