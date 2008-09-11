@@ -431,10 +431,15 @@ class TemplateMaxi extends ATemplate
 	 */ 
 	private function _enableButton(pButton:MovieClip, pStatus:Boolean, pMask:Boolean)
 	{ 
-		pButton.area_mc.enabled = pStatus; 
-		pButton._visible = !pMask; 
-		if (!pStatus) pButton.icon_mc._alpha = 30; 
-		else pButton.icon_mc._alpha = 100; 
+		if (pButton) {
+            pButton.area_mc.enabled = pStatus;
+            pButton._visible = !pMask;
+            if (!pStatus) {
+                pButton.icon_mc._alpha = 30;
+            } else {
+                pButton.icon_mc._alpha = 100;
+            }
+        } 
 	} 
 	/**
 	 * Initialisation du bouton Play
@@ -737,8 +742,9 @@ class TemplateMaxi extends ATemplate
 	 */
 	private function _initSlider(pMargin:Number)
 	{
+		this._sliderInstance = this._target.createEmptyMovieClip("slider_mc", this._target.getNextHighestDepth());
+        
 		if (this._showSlider) {
-			this._sliderInstance = this._target.createEmptyMovieClip("slider_mc", this._target.getNextHighestDepth());
 			
 			// calcul de la taille
 			var vMargin:Number = pMargin;
@@ -851,19 +857,25 @@ class TemplateMaxi extends ATemplate
 	private function _sliderEnterFrame() {
         var total:Number = 0;
         var position:Number = 0;
+        var threshold:Number = 10; // threshold of the stop detection
         
         if (this._showSlider) {
     		total = (this._sliderInstance.loading_mc._visible)?this._sliderInstance.loading_mc._width:this._sliderInstance.width - this.sliderWidth;
+    		position = Math.round(this.player.getPosition()/this.player.getDuration() * total);
+            this._sliderInstance.bar_mc._x = position;
         } else {
             total = this.player.getDuration();
+            position = this.player.getPosition();
+            
+            threshold = 400;
+            
+            // if the duration of the sound is below 2 seconds
+            if (total < 2000) {
+                threshold = 800;
+            }
         }
-		position = Math.round(this.player.getPosition()/this.player.getDuration() * total);
         
-        if (this._showSlider) {
-            this._sliderInstance.bar_mc._x = position;
-        }
-        
-		if (!this.player.isPlaying && position == total) {
+		if (!this.player.isPlaying && Math.abs(total - position) < threshold) {
 			this.stopRelease();
 		}
 	}
@@ -899,7 +911,10 @@ class TemplateMaxi extends ATemplate
 		this._enableButton(this._pauseButtonInstance, false, true);
 		this._enableButton(this._playButtonInstance, true);
 		delete this._sliderInstance.onEnterFrame;
-		this._sliderInstance.bar_mc._x = 0;
+        
+        if (this._showSlider) {
+    		this._sliderInstance.bar_mc._x = 0;
+        }
 	}
 	/**
 	 * Action sur le bouton info	 */
