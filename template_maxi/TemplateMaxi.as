@@ -19,7 +19,7 @@ The Initial Developer of the Original Code is neolao (neolao@gmail.com).
  * Thème avec plein de choses pour le lecteur mp3
  * 
  * @author		neolao <neo@neolao.com> 
- * @version 	0.6.1 (29/08/2008) 
+ * @version 	0.6.2 (11/09/2008) 
  * @license		http://creativecommons.org/licenses/by-sa/3.0/deed.fr
  */ 
 class TemplateMaxi extends ATemplate
@@ -848,11 +848,21 @@ class TemplateMaxi extends ATemplate
 	/** 
 	 * Le enterFrame du slider 
 	 */ 
-	private function _sliderEnterFrame(){
-		var total:Number = (this._sliderInstance.loading_mc._visible)?this._sliderInstance.loading_mc._width:this._sliderInstance.width - this.sliderWidth;
-		var position:Number = Math.round(this.player.getPosition()/this.player.getDuration() * total); 
-		this._sliderInstance.bar_mc._x = position;
-		
+	private function _sliderEnterFrame() {
+        var total:Number = 0;
+        var position:Number = 0;
+        
+        if (this._showSlider) {
+    		total = (this._sliderInstance.loading_mc._visible)?this._sliderInstance.loading_mc._width:this._sliderInstance.width - this.sliderWidth;
+        } else {
+            total = this.player.getDuration();
+        }
+		position = Math.round(this.player.getPosition()/this.player.getDuration() * total);
+        
+        if (this._showSlider) {
+            this._sliderInstance.bar_mc._x = position;
+        }
+        
 		if (!this.player.isPlaying && position == total) {
 			this.stopRelease();
 		}
