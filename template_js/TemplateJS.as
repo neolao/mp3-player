@@ -20,7 +20,7 @@ import flash.external.*;
  * Thème spécial pour le contrôle par javascript
  * 
  * @author		neolao <neo@neolao.com> 
- * @version 	0.3.1 (04/09/2008) 
+ * @version 	0.3.2 (22/10/2008) 
  * @license		http://creativecommons.org/licenses/by-sa/2.5/ 
  */ 
 class TemplateJS extends ATemplate
@@ -113,7 +113,8 @@ class TemplateJS extends ATemplate
 		var id3:Object = this.player.getID3();
 		for (var i:String in id3) {
 			//_setProperty("id3_"+i, id3[i]);
-            _setProperty("id3_"+i, this._replace('"','\\"',id3[i])); // escape double quote
+            //_setProperty("id3_"+i, this._replace('"','\\"',id3[i])); // escape double quote
+            _setProperty("id3_"+i, escape(id3[i]));
 		}
 		
 		var js:String = "";
