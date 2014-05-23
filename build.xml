@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0"?><object data="http://flash-mp3-player.net/medias/player_mp3_multi.swf" width="200" height="100" type="application/x-shockwave-flash"> <param value="http://flash-mp3-player.net/medias/player_mp3_multi.swf" name="movie"/> <param value="#ffffff" name="bgcolor"/> <param value="mp3=http%3A//<a href="//www.4shared.com/mp3/XK9vw32Tce/Segundo_Programa___Tazita_de_C.html"|http%3A// &amp;title=Título 1|Título 2target=_blank>Segundo Programa   Tazita de Chocolate con Miel   completo.mp3</a>|http%3A/<a href="//www.4shared.com/mp3/mz0Q6XSwba/Tazita_de_Chocolate_con_Miel__.html"|http%3A// &amp;title=Título 1|Título 2target=_blank>Tazita de Chocolate con Miel   completo.mp3</a>/&amp;showvolume=1&amp;showinfo=1" name="FlashVars"/> </object>
 <project name="MP3 Player" basedir=".">
 
     <property name="mtasc.dir" value="${basedir}/mtasc" />
