@@ -5,7 +5,7 @@
 
     <target name="template_default" depends="setup" description="Build template_default">
     	<property name="template.dir" value="${basedir}/template_default" />
-        <exec executable="${mtasc.exe}" failonerror="false">
+        <exec executable="${mtasc.dir}/${mtasc.exe}" failonerror="false">
             <arg line="-version 7 -v -strict -main -header 200:20:24
             	-cp ${basedir}/classes
             	-swf ${template.dir}/player_mp3.swf
@@ -15,7 +15,7 @@
 
     <target name="template_mini" depends="setup" description="Build template_mini">
     	<property name="template.dir" value="${basedir}/template_mini" />
-        <exec executable="${mtasc.exe}" failonerror="false">
+        <exec executable="${mtasc.dir}/${mtasc.exe}" failonerror="false">
             <arg line="-version 7 -v -strict -main -header 200:20:24
             	-cp ${basedir}/classes
             	-swf ${template.dir}/player_mp3_mini.swf
@@ -25,7 +25,7 @@
 
     <target name="template_maxi" depends="setup" description="Build template_maxi">
     	<property name="template.dir" value="${basedir}/template_maxi" />
-        <exec executable="${mtasc.exe}" failonerror="false">
+        <exec executable="${mtasc.dir}/${mtasc.exe}" failonerror="false">
             <arg line="-version 7 -v -strict -main -header 200:20:24
             	-cp ${basedir}/classes
             	-swf ${template.dir}/player_mp3_maxi.swf
@@ -35,7 +35,7 @@
 
     <target name="template_multi" depends="setup" description="Build template_multi">
     	<property name="template.dir" value="${basedir}/template_multi" />
-        <exec executable="${mtasc.exe}" failonerror="false">
+        <exec executable="${mtasc.dir}/${mtasc.exe}" failonerror="false">
             <arg line="-version 7 -v -strict -main -header 200:20:24
             	-cp ${basedir}/classes
             	-swf ${template.dir}/player_mp3_multi.swf
@@ -45,7 +45,7 @@
 
     <target name="template_js" depends="setup" description="Build template_js">
     	<property name="template.dir" value="${basedir}/template_js" />
-        <exec executable="${mtasc.exe}" failonerror="false">
+        <exec executable="${mtasc.dir}/${mtasc.exe}" failonerror="false">
             <arg line="-version 8 -v -strict -main -header 1:1:24
             	-cp ${basedir}/classes
             	-swf ${template.dir}/player_mp3_js.swf
