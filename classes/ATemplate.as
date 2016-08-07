@@ -1,4 +1,4 @@
-﻿/*
+/*
 Version: MPL 1.1
 
 The contents of this file are subject to the Mozilla Public License
@@ -15,32 +15,35 @@ The Original Code is mp3player (http://code.google.com/p/mp3player/).
 
 The Initial Developer of the Original Code is neolao (neolao@gmail.com).
 */
-/** 
+/**
  * Classe abstraite pour un thème
- * 
- * @author		neolao <neo@neolao.com> 
- * @version 	0.9 (02/04/2006) 
- * @license		http://creativecommons.org/licenses/by-sa/2.5/ 
- */ 
+ *
+ * @author		neolao <neo@neolao.com>
+ * @version 	0.9 (02/04/2006)
+ * @license		http://creativecommons.org/licenses/by-sa/2.5/
+ */
 class ATemplate
 {
 	// ------------------------------ VARIABLES --------------------------------
 	/**
-	 * L'instance du lecteur	 */
+	 * L'instance du lecteur
+	 */
 	public var player:PlayerBasic;
 	/**
-	 * Les raccourcis clavier	 */
+	 * Les raccourcis clavier
+	 */
 	private var _shortcuts:Array;
-	
+
 	/*============================= CONSTRUCTEUR =============================*/
 	/*========================================================================*/
 	/**
-	 * Initialisation	 */
+	 * Initialisation
+	 */
 	private function ATemplate()
 	{
 		this._shortcuts = new Array();
 		this._initKey();
-        
+
         if (_global._accProps == undefined) {
             _global._accProps = new Object();
         }
@@ -48,15 +51,16 @@ class ATemplate
 	}
 	/*======================= FIN = CONSTRUCTEUR = FIN =======================*/
 	/*========================================================================*/
-	
+
 	/*=========================== METHODES PRIVEES ===========================*/
 	/*========================================================================*/
 	/**
-	 * Initialisation du gestionnaire de clavier	 */
+	 * Initialisation du gestionnaire de clavier
+	 */
 	private function _initKey()
 	{
 		var o:Object = new Object();
-		o.onKeyUp = this.delegate(this, function() 
+		o.onKeyUp = this.delegate(this, function()
 		{
 		     if (this._shortcuts[Key.getCode()]) {
 		     	this._shortcuts[Key.getCode()]();
@@ -66,15 +70,17 @@ class ATemplate
 	}
 	/**
 	 * Ajouter un raccourci clavier
-	 * 
-	 * @param pKeyCode Le code de la touche	 * @param pFunction La fonction à exécuter	 */
+	 *
+	 * @param pKeyCode Le code de la touche
+	 * @param pFunction La fonction à exécuter
+	 */
 	private function _addShortcut(pKeyCode:Number, pFunction:Function)
 	{
 		this._shortcuts[pKeyCode] = pFunction;
 	}
 	/*===================== FIN = METHODES PRIVEES = FIN =====================*/
 	/*========================================================================*/
-	
+
 	/*========================== METHODES PUBLIQUES ==========================*/
 	/*========================================================================*/
 	/**
@@ -106,27 +112,27 @@ class ATemplate
 	 */
 	public function startLoading()
 	{
-		
+
 	}
 	/**
 	 * Délégation de fonction
-	 * 
+	 *
 	 * @param pTarget La cible
 	 * @param pFunc La fonction
 	 * @return La même fonction avec un scope fixe
 	 */
 	public function delegate(pTarget:Object, pFunc:Function):Function
 	{
-		var f:Function = function()
+		var f:Function = function():Object
 		{
-			var target = arguments.callee.target;
-			var func = arguments.callee.func;
+			var target:String = arguments.callee.target;
+			var func:Function = arguments.callee.func;
 			return func.apply(target);
 		};
- 
+
 		f.target = pTarget;
 		f.func = pFunc;
- 
+
 		return f;
 	}
 	/*==================== FIN = METHODES PUBLIQUES = FIN ====================*/
